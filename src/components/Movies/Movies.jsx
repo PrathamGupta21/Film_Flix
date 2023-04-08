@@ -1,11 +1,35 @@
 import React from 'react';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
+import MovieList from '../MovieList/MovieList';
 import { useGetMoviesQuery } from '../../services/TMDB';
 
 const Movies = () => {
-  const { data } = useGetMoviesQuery();
-  console.log(data);
-  return <div>Movies</div>;
+  const { data, error, isFetching } = useGetMoviesQuery();
+
+  if (isFetching) {
+    return (
+      <Box display='flex' justifyContent='center'>
+        <CircularProgress size='4rem' />
+      </Box>
+    );
+  }
+
+  if (!data.results.length) {
+    return (
+      <Box display='flex' alignContent='center' mt='20px'>
+        <Typography variant='h4'>No Movies Found</Typography>
+      </Box>
+    );
+  }
+
+  if (error) return 'An error has occured.';
+
+  return (
+    <div>
+      <MovieList movies={data} />
+    </div>
+  );
 };
 
 export default Movies;
