@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
+  Box,
+  CircularProgress,
   Divider,
   List,
   ListItemButton,
@@ -11,18 +13,13 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 import useStyles from './styles';
+import { useGetGenresQuery } from '../../services/TMDB';
+import genreIcons from '../../assets/genres';
 
 const categories = [
   { label: 'Popular', value: 'popular' },
   { label: 'Top Rated', value: 'top_rated' },
   { label: 'Upcoming', value: 'upcoming' },
-];
-
-const demoCategories = [
-  { label: 'Comedy', value: 'comedy' },
-  { label: 'Action', value: 'action' },
-  { label: 'Horror', value: 'horror' },
-  { label: 'Animation', value: 'animation' },
 ];
 
 const redLogo =
@@ -33,6 +30,7 @@ const blueLogo =
 const SideBar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const { classes } = useStyles();
+  const { data, isFetching } = useGetGenresQuery();
 
   return (
     <>
@@ -51,7 +49,7 @@ const SideBar = ({ setMobileOpen }) => {
             <ListItemButton onClick={() => {}}>
               <ListItemIcon>
                 <img
-                  src={redLogo}
+                  src={genreIcons[label.toLowerCase()]}
                   alt='Genres'
                   className={classes.genreImages}
                   height={30}
@@ -65,21 +63,27 @@ const SideBar = ({ setMobileOpen }) => {
       <Divider />
       <List>
         <ListSubheader>Genres</ListSubheader>
-        {demoCategories.map(({ label, value }) => (
-          <Link key={value} className={classes.links} to='/'>
-            <ListItemButton onClick={() => {}}>
-              <ListItemIcon>
-                <img
-                  src={redLogo}
-                  alt='Genres'
-                  className={classes.genreImages}
-                  height={30}
-                />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItemButton>
-          </Link>
-        ))}
+        {isFetching ? (
+          <Box display='flex' justifyContent='center'>
+            <CircularProgress size='4rem' />
+          </Box>
+        ) : (
+          data.genres.map(({ name, id }) => (
+            <Link key={id} className={classes.links} to='/'>
+              <ListItemButton onClick={() => {}}>
+                <ListItemIcon>
+                  <img
+                    src={genreIcons[name.toLowerCase()]}
+                    alt='Genres'
+                    className={classes.genreImages}
+                    height={30}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={name} />
+              </ListItemButton>
+            </Link>
+          ))
+        )}
       </List>
     </>
   );
