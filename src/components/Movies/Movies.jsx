@@ -7,8 +7,14 @@ import { useGetMoviesQuery } from '../../services/TMDB';
 
 const Movies = () => {
   const [page, setPage] = useState(1);
-  const { categoryName } = useSelector((state) => state.currentCategory);
-  const { data, error, isFetching } = useGetMoviesQuery({ categoryName, page });
+  const { categoryName, searchQuery } = useSelector(
+    (state) => state.currentCategory
+  );
+  const { data, error, isFetching } = useGetMoviesQuery({
+    categoryName,
+    page,
+    searchQuery,
+  });
 
   if (isFetching) {
     return (
