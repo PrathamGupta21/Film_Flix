@@ -11,10 +11,12 @@ import {
   ListSubheader,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import { useGetGenresQuery } from '../../services/TMDB';
 import genreIcons from '../../assets/genres';
+import { selectCategory } from '../../features/currentCategory';
 
 const categories = [
   { label: 'Popular', value: 'popular' },
@@ -31,6 +33,7 @@ const SideBar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const { classes } = useStyles();
   const { data, isFetching } = useGetGenresQuery();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -46,7 +49,7 @@ const SideBar = ({ setMobileOpen }) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to='/'>
-            <ListItemButton onClick={() => {}}>
+            <ListItemButton onClick={() => dispatch(selectCategory(value))}>
               <ListItemIcon>
                 <img
                   src={genreIcons[label.toLowerCase()]}
@@ -70,7 +73,7 @@ const SideBar = ({ setMobileOpen }) => {
         ) : (
           data.genres.map(({ name, id }) => (
             <Link key={id} className={classes.links} to='/'>
-              <ListItemButton onClick={() => {}}>
+              <ListItemButton onClick={() => dispatch(selectCategory(id))}>
                 <ListItemIcon>
                   <img
                     src={genreIcons[name.toLowerCase()]}
