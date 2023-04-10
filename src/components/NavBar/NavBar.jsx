@@ -37,8 +37,6 @@ const NavBar = () => {
   const token = localStorage.getItem('request_token');
   const sessionIdFromLocalStorage = localStorage.getItem('session_id');
 
-  console.log(user);
-
   useEffect(() => {
     const logInUser = async () => {
       if (token) {
@@ -90,8 +88,7 @@ const NavBar = () => {
                 color='inherit'
                 component={Link}
                 to={`/profile/${user.id}`}
-                className={classes.linkButton}
-                onClick={() => {}}>
+                className={classes.linkButton}>
                 {!isMobile && <>My Movies &nbsp;</>}
                 <Avatar
                   style={{ width: 30, height: 30 }}
