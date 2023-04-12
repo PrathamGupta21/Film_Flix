@@ -9,9 +9,10 @@ const MovieList = ({ movies }) => {
 
   return (
     <Grid container className={classes.moviesContainer}>
-      {movies.results.map((movie, index) => (
-        <Movie key={index} movie={movie} index={index} />
-      ))}
+      {movies.results.map(
+        (movie, index) =>
+          movie.poster_path && <Movie key={index} movie={movie} index={index} />
+      )}
     </Grid>
   );
 };

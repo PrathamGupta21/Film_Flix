@@ -14,11 +14,7 @@ const Movie = ({ movie, index }) => {
           <img
             alt={movie.title}
             className={classes.image}
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : 'https://picsum.photos/200/300'
-            }
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           />
           <Typography className={classes.title} variant='h5'>
             {movie.title}
