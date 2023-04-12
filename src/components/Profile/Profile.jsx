@@ -8,8 +8,6 @@ const Profile = () => {
 
   const favouriteMovies = [];
 
-  console.log(user);
-
   const logOut = () => {
     localStorage.clear();
 
