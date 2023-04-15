@@ -21,16 +21,24 @@ import {
   Theaters,
 } from '@mui/icons-material';
 
-import { useGetMovieQuery } from '../../services/TMDB';
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery,
+} from '../../services/TMDB';
 import useStyles from './styles';
 import genreIcons from '../../assets/genres';
 import { selectCategory } from '../../features/currentCategory';
+import MovieList from './../MovieList/MovieList';
 
 const MovieInfo = () => {
   const { classes } = useStyles();
   const { id } = useParams();
-  const { data, isFetching, error } = useGetMovieQuery(id);
   const dispatch = useDispatch();
+  const { data, isFetching, error } = useGetMovieQuery(id);
+  const { data: recommendations } = useGetRecommendationsQuery({
+    list: '/recommendations',
+    movie_id: id,
+  });
 
   const isMovieFavorited = true;
   const isMovieWatchListed = true;
@@ -200,6 +208,16 @@ const MovieInfo = () => {
           </div>
         </Grid>
       </Grid>
+      <Box marginTop='5rem' width='100%'>
+        <Typography variant='h3' gutterBottom align='center'>
+          You might also like
+        </Typography>
+        {recommendations ? (
+          <MovieList movies={recommendations} numberOfMovies={12} />
+        ) : (
+          <Box>Sorry, nothing was found</Box>
+        )}
+      </Box>
     </Grid>
   );
 };
