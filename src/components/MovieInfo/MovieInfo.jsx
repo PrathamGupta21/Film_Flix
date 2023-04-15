@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   CircularProgress,
   Grid,
+  Modal,
   Rating,
   Typography,
 } from '@mui/material';
@@ -35,6 +36,8 @@ const MovieInfo = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { data, isFetching, error } = useGetMovieQuery(id);
+  const [open, setOpen] = useState(false);
+
   const { data: recommendations } = useGetRecommendationsQuery({
     list: '/recommendations',
     movie_id: id,
@@ -172,7 +175,10 @@ const MovieInfo = () => {
                   endIcon={<MovieIcon />}>
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href='#' endIcon={<Theaters />}>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href='#'
+                  endIcon={<Theaters />}>
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -218,6 +224,21 @@ const MovieInfo = () => {
           <Box>Sorry, nothing was found</Box>
         )}
       </Box>
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}>
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            title='Trailer'
+            src={`https:/www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow='autoplay'
+          />
+        )}
+      </Modal>
     </Grid>
   );
 };

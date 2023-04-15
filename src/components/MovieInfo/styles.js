@@ -68,6 +68,7 @@ export default makeStyles()((theme) => {
     video: {
       width: '50%',
       height: '50%',
+      borderWidth: '0px',
       [theme.breakpoints.down('sm')]: {
         width: '90%',
         height: '90%',
