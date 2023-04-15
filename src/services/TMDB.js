@@ -32,7 +32,7 @@ export const tmdbApi = createApi({
         }
 
         //* Get Default Movies
-        return `/movie/popular?page=${page}&api_key=${tmdbApiKey}&with_original_language=hi|kn|ml|ta|te`;
+        return `/movie/top_rated?page=${page}&api_key=${tmdbApiKey}&with_original_language=hi|kn|ml|ta|te`;
       },
     }),
 
@@ -47,6 +47,17 @@ export const tmdbApi = createApi({
       query: ({ movie_id, list }) =>
         `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
     }),
+
+    //* Get Actors Detail
+    getActorsDetail: builder.query({
+      query: (id) => `person/${id}?api_key=${tmdbApiKey}`,
+    }),
+
+    //* Get Movies By Actor
+    getMoviesByActorId: builder.query({
+      query: (id, page) =>
+        `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`,
+    }),
   }),
 });
 
@@ -55,4 +66,6 @@ export const {
   useGetGenresQuery,
   useGetMovieQuery,
   useGetRecommendationsQuery,
+  useGetActorsDetailQuery,
+  useGetMoviesByActorIdQuery,
 } = tmdbApi;

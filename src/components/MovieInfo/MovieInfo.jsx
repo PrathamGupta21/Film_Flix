@@ -218,10 +218,10 @@ const MovieInfo = () => {
         <Typography variant='h3' gutterBottom align='center'>
           You might also like
         </Typography>
-        {recommendations ? (
+        {recommendations?.length > 0 ? (
           <MovieList movies={recommendations} numberOfMovies={12} />
         ) : (
-          <Box>Sorry, nothing was found</Box>
+          <Typography variant='h6'>Sorry, Nothing was found.</Typography>
         )}
       </Box>
       <Modal
@@ -229,14 +229,33 @@ const MovieInfo = () => {
         className={classes.modal}
         open={open}
         onClose={() => setOpen(false)}>
-        {data?.videos?.results?.length > 0 && (
+        {data?.videos?.results?.length > 0 ? (
           <iframe
             autoPlay
             className={classes.video}
             title='Trailer'
-            src={`https:/www.youtube.com/embed/${data.videos.results[0].key}`}
+            src={`https:/www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
             allow='autoplay'
           />
+        ) : (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 300,
+              bgcolor: 'white',
+              border: '2px solid #000',
+              borderRadius: '20px',
+              boxShadow: 24,
+              p: 4,
+            }}>
+            <Typography variant='h6'>Sorry!!</Typography>
+            <Typography sx={{ mt: 2 }}>
+              No Trailer found for this Movie.
+            </Typography>
+          </Box>
         )}
       </Modal>
     </Grid>
