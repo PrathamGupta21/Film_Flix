@@ -23,16 +23,16 @@ export const tmdbApi = createApi({
 
         //* Get Movies by Categories
         if (categoryName && typeof categoryName === 'string') {
-          return `/movie/${categoryName}?page=${page}&api_key=${tmdbApiKey}&with_original_language=hi|kn|ml|ta|te`;
+          return `/movie/${categoryName}?page=${page}&api_key=${tmdbApiKey}`;
         }
 
         //* Get Movies by Genre
         if (categoryName && typeof categoryName === 'number') {
-          return `discover/movie?with_genres=${categoryName}&page=${page}&api_key=${tmdbApiKey}&with_original_language=hi|kn|ml|ta|te`;
+          return `discover/movie?with_genres=${categoryName}&page=${page}&api_key=${tmdbApiKey}`;
         }
 
         //* Get Default Movies
-        return `/movie/top_rated?page=${page}&api_key=${tmdbApiKey}&with_original_language=hi|kn|ml|ta|te`;
+        return `/movie/now_playing?page=${page}&api_key=${tmdbApiKey}`;
       },
     }),
 
