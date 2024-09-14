@@ -294,7 +294,7 @@ const MovieInfo = () => {
             autoPlay
             className={classes.video}
             title='Trailer'
-            src={`https:/www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
+            src={`https://www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
             allow='autoplay'
           />
         ) : (
