@@ -41,9 +41,14 @@ const Profile = () => {
         <Typography variant='h4' gutterBottom>
           My Profile
         </Typography>
-        <Button color='inherit' onClick={logOut}>
-          LogOut &nbsp; <ExitToApp />
-        </Button>
+        <Box>
+          <Typography variant='h4' gutterBottom>
+            {user.username}
+          </Typography>
+          <Button color='inherit' onClick={logOut}>
+            LogOut &nbsp; <ExitToApp />
+          </Button>
+        </Box>
       </Box>
       {!favoriteMovies?.results?.length && !watchlistMovies?.results?.length ? (
         <Typography variant='h5'>
