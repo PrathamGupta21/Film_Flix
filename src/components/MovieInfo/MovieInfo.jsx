@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Iframe from 'react-iframe';
 import {
   Box,
   Button,
@@ -291,7 +290,7 @@ const MovieInfo = () => {
         open={open}
         onClose={() => setOpen(false)}>
         {data?.videos?.results?.length > 0 ? (
-          <Iframe
+          <iframe
             autoPlay
             className={classes.video}
             title='Trailer'
