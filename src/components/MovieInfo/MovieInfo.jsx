@@ -57,7 +57,7 @@ const MovieInfo = () => {
   });
 
   const { data: recommendations } = useGetRecommendationsQuery({
-    list: '/recommendations',
+    list: 'recommendations',
     movie_id: id,
   });
 
@@ -278,7 +278,7 @@ const MovieInfo = () => {
         <Typography variant='h3' gutterBottom align='center'>
           You might also like
         </Typography>
-        {recommendations?.length > 0 ? (
+        {recommendations?.results?.length > 0 ? (
           <MovieList movies={recommendations} numberOfMovies={12} />
         ) : (
           <Typography variant='h6'>Sorry, Nothing was found.</Typography>
