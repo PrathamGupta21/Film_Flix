@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -11,7 +11,7 @@ import {
   ListSubheader,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
 import { useGetGenresQuery } from '../../services/TMDB';
@@ -34,6 +34,12 @@ const SideBar = ({ setMobileOpen }) => {
   const { classes } = useStyles();
   const { data, isFetching } = useGetGenresQuery();
   const dispatch = useDispatch();
+  const { categoryName } = useSelector((state) => state.currentCategory);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryName]);
 
   return (
     <>
